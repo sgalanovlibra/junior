@@ -1,4 +1,4 @@
-package ru.interview.practice;
+package ru.interview.first;
 
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
@@ -8,15 +8,14 @@ import java.util.List;
 
 /**
  * Необходимо реализовать метод printStringsByName, чтобы он выводил в терминал строки,
- *  содержащие подстроку MATCH вне зависимости от регистра строки в масиве
+ *  содержащие подстроку match вне зависимости от регистра строки в масиве
  */
-public class Case2 {
-
-    static String MATCH = "java";
+public class StringFinder {
 
     public static void main(String[] args) {
         List<String> list = new ArrayList<>(Arrays.asList("oracle", "Java", "javaScript", "sql"));
-        printStringsByName(list, MATCH);
+        String match = "java";
+        printStringsByName(list, match);
     }
 
     private static void printStringsByName(List<String> list, final String match) {

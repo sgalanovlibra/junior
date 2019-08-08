@@ -1,10 +1,10 @@
-package ru.interview.practice;
+package ru.interview.third;
 
 /**
  * Дан класс, реализующий проверку наличия драйвера jdbc
  * Перепишите класс, что бы он проверял наличие драйвера при инициализации класса
  */
-public class Case1 {
+public class DriverCheck {
     public static void main(String[] args) {
         new DbConnector();
     }
@@ -12,7 +12,7 @@ public class Case1 {
 
 class DbConnector {
 
-    boolean isDriverAvailable;
+    private boolean isDriverAvailable;
 
     DbConnector() {
         try {

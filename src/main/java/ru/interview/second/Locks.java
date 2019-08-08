@@ -1,13 +1,13 @@
-package ru.interview.theory;
+package ru.interview.second;
 
 /**
  * Ниже представлены 2 класса, наследуемые от класса Thread
- * Опишите проблему данного кода и Ваши рекомендации по нему
+ * Какая в коде есть проблема? Как бы Вы её исправили?
  */
-public class Case3 {
+public class Locks {
 
-    public static Object lockOne = new Object();
-    public static Object lockTwo = new Object();
+    private static Object lockOne = new Object();
+    private static Object lockTwo = new Object();
 
     public static void main(String[] args) {
         FirstThread th1 = new FirstThread(lockOne, lockTwo, "FirstThread");
@@ -19,9 +19,9 @@ public class Case3 {
 
 class FirstThread extends Thread {
 
-    final Object lockOne;
-    final Object lockTwo;
-    String name;
+    private final Object lockOne;
+    private final Object lockTwo;
+    private String name;
 
     FirstThread(Object lockOne, Object lockTwo, String name) {
         this.lockOne = lockOne;
@@ -40,7 +40,7 @@ class FirstThread extends Thread {
             }
 
             synchronized (this.lockTwo) {
-                System.out.println(name + " locking");
+                System.out.println(name + " unlocking");
                 try {
                     Thread.sleep(10);
                 } catch (InterruptedException e) {
@@ -53,7 +53,7 @@ class FirstThread extends Thread {
 
 class SecondThread extends FirstThread {
 
-    public SecondThread(Object lockOne, Object lockTwo, String name) {
+    SecondThread(Object lockOne, Object lockTwo, String name) {
         super(lockOne, lockTwo, name);
     }
 }

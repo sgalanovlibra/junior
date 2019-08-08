@@ -1,28 +1,27 @@
-package ru.interview.theory;
+package ru.interview.forth;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 import java.util.stream.Collectors;
 
 /**
- * Укажите какие здесь допущены ошибки
+ * Требуется отрефакторить код
  */
 public class Person {
 
     private String firstName;
     private String lastName;
     public Date birthDate;
-    private Boolean isMan;
+    private Boolean male;
 
-    public Person(String firstName, String lastName, Date birthDate, Boolean isMan) {
+    public Person(String firstName, String lastName, Date birthDate, Boolean male) {
         this.firstName = firstName;
         this.lastName = lastName;
         this.birthDate = birthDate;
-        this.isMan = isMan;
+        this.male = male;
     }
 
     Person() {
@@ -54,25 +53,27 @@ public class Person {
     }
 
     public Boolean getGender() {
-        return isMan;
+        return male;
     }
 
     public void setGender(Boolean gender) {
-        this.isMan = gender;
+        this.male = gender;
     }
 
 }
 
-class Test {
+class PersonFinder {
 
     private static List<Person> PERSONS = new ArrayList<>();
 
     public static void main(String[] args) {
         PERSONS.add(new Person());
-        PERSONS.add(new Person("Andrey", "Ivanov", convertStringToDate("01/05/2019"), true));
-        PERSONS.add(new Person("Sergey", "Galanov", convertStringToDate("03/3/2017"), false));
+        PERSONS.add(new Person("Евгения", "Степанова", convertStringToDate("16/09/2000"), false));
+        PERSONS.add(new Person("Сергей", "Галанов", convertStringToDate("15/07/1993"), true));
+        PERSONS.add(new Person("Александр", "Ильин", convertStringToDate("11/10/1989"), true));
 
-        System.out.println(findSamePerson(new Person("Andrey", "Ivanov", convertStringToDate("01/05/2019"), true)).size());
+        System.out.println(isPersonExists(new Person("Александр", "Ильин", convertStringToDate("11/10/1989"), true)));
+        System.out.println(isPersonExists(new Person("Анна", "Жукова", convertStringToDate("17/10/1995"), false)));
     }
 
     /**
@@ -80,7 +81,7 @@ class Test {
      * @param person
      * @return
      */
-    private static List<Person> findSamePerson(Person person) {
+    private static boolean isPersonExists(Person person) {
         List<Person> result = new ArrayList<>();
         PERSONS.stream()
                 .filter((el -> el.getFirstName().equals(person.getFirstName())
@@ -88,7 +89,11 @@ class Test {
                                 && el.getGender().equals(person.getGender())
                                 && el.getBirthDate().equals(person.getBirthDate())))
                 .collect(Collectors.toCollection(() ->result));
-        return result;
+        if (result.isEmpty()) {
+            return false;
+        } else {
+            return true;
+        }
     }
 
 
